@@ -1,8 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -27,11 +37,13 @@ const Header = () => {
   };
 
   return (
-    <header className="l-header">
+    <header className={`l-header ${isScrolled ? 'scrolled' : ''}`}>
       <nav className="nav bd-grid">
         <div>
           <a href="#home" className="nav__logo" onClick={() => handleNavClick('home')}>
-            Prajwal
+            <span className="logo-bracket">{'{'}</span>
+            Prajwal Nayak
+            <span className="logo-bracket">{'}'}</span>
           </a>
         </div>
 
@@ -43,7 +55,8 @@ const Header = () => {
                 className={`nav__link ${activeSection === 'home' ? 'active' : ''}`}
                 onClick={() => handleNavClick('home')}
               >
-                Home
+                <i className='bx bx-home'></i>
+                <span>Home</span>
               </a>
             </li>
             <li className="nav__item">
@@ -52,7 +65,8 @@ const Header = () => {
                 className={`nav__link ${activeSection === 'about' ? 'active' : ''}`}
                 onClick={() => handleNavClick('about')}
               >
-                About
+                <i className='bx bx-user'></i>
+                <span>About</span>
               </a>
             </li>
             <li className="nav__item">
@@ -61,7 +75,8 @@ const Header = () => {
                 className={`nav__link ${activeSection === 'skills' ? 'active' : ''}`}
                 onClick={() => handleNavClick('skills')}
               >
-                Skills
+                <i className='bx bx-code-alt'></i>
+                <span>Skills</span>
               </a>
             </li>
             <li className="nav__item">
@@ -70,7 +85,8 @@ const Header = () => {
                 className={`nav__link ${activeSection === 'projects' ? 'active' : ''}`}
                 onClick={() => handleNavClick('projects')}
               >
-                Projects
+                <i className='bx bx-folder'></i>
+                <span>Projects</span>
               </a>
             </li>
             <li className="nav__item">
@@ -79,14 +95,25 @@ const Header = () => {
                 className={`nav__link ${activeSection === 'contact' ? 'active' : ''}`}
                 onClick={() => handleNavClick('contact')}
               >
-                Contact
+                <i className='bx bx-envelope'></i>
+                <span>Contact</span>
               </a>
             </li>
           </ul>
         </div>
 
-        <div className="nav__toggle" id="nav-toggle" onClick={toggleMenu}>
-          <i className='bx bx-menu'></i>
+        <div className="nav__actions">
+          <a 
+            href="mailto:prajwalnayak21@gmail.com"
+            className="nav__cta"
+          >
+            <i className='bx bx-envelope'></i>
+            <span>Email Me</span>
+          </a>
+          
+          <div className="nav__toggle" id="nav-toggle" onClick={toggleMenu}>
+            <i className={`bx ${isMenuOpen ? 'bx-x' : 'bx-menu'}`}></i>
+          </div>
         </div>
       </nav>
     </header>
