@@ -103,14 +103,6 @@ const Header = () => {
         </div>
 
         <div className="nav__actions">
-          <a 
-            href="mailto:prajwalnayak21@gmail.com"
-            className="nav__cta"
-          >
-            <i className='bx bx-envelope'></i>
-            <span>Email Me</span>
-          </a>
-          
           <div className="nav__toggle" id="nav-toggle" onClick={toggleMenu}>
             <i className={`bx ${isMenuOpen ? 'bx-x' : 'bx-menu'}`}></i>
           </div>
